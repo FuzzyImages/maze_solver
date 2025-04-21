@@ -1,44 +1,27 @@
-from tkinter import Tk, BOTH, Canvas
-
-class Window:
-    def __init__(self, width, height):
-        # Create the main window (root widget)
-        self.__root = Tk()
-
-        # Set properties on the main window
-        self.__root.title("Maze Solver")
-        self.__root.geometry(f"{width}x{height}")
-
-        # Create canvas widget (This is where things are drawn)
-        self.__canvas = Canvas(self.__root, bg="white")
-
-        # Pack canvas (Make it fill the window)
-        self.__canvas.pack(fill=BOTH, expand=True)
-
-        # Track if window is running
-        self.__is_running = False
-
-        # I guess .protocol is the X button on the window....
-        self.__root.protocol("WM_DELETE_WINDOW", self.close)
-
-    def redraw(self):
-        self.__root.update_idletasks()
-        self.__root.update()
-
-    def wait_for_close(self):
-        self.__is_running = True
-
-        while self.__is_running:
-            self.redraw()
-        
-        print("Loop ended, program will exit.")
-
-    def close(self):
-        self.__is_running = False
-
+from graphics import Window, Point, Line
 
 def main():
     win = Window(800, 600)
+
+    cords = 200
+    size = 100
+
+    ### Square ###
+    p1 = Point(cords, cords) #upper left
+    p2 = Point(cords+size, cords) #upper right
+    p3 = Point(cords, cords+size) #lower left
+    p4 = Point(cords+size, cords+size) #lower right
+
+    line1 = Line(p1, p2) #top edge
+    line2 = Line(p1, p3) #left edge
+    line3 = Line(p3, p4) #bottom edge
+    line4 = Line(p2, p4) #right Edge
+
+    win.draw_line(line1, "red")
+    win.draw_line(line2, "red")
+    win.draw_line(line3, "red")
+    win.draw_line(line4, "red")
+
     win.wait_for_close()
 
 
