@@ -89,3 +89,6 @@ class Cell:
         if self.has_bottom_wall:
             bottom_wall = Line(Point(self._x1, self._y2), Point(self._x2, self._y2))
             self._win.draw_line(bottom_wall, "black")
+
+    def draw_move(self, to_cell, undo=False):
+        pass
